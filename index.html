@@ -67,6 +67,83 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SRE附录D-事后总结示范-模板" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/08/SRE%E9%99%84%E5%BD%95D-%E4%BA%8B%E5%90%8E%E6%80%BB%E7%BB%93%E7%A4%BA%E8%8C%83-%E6%A8%A1%E6%9D%BF/" class="article-date">
+  <time datetime="2019-12-08T09:35:57.446Z" itemprop="datePublished">2019-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/08/SRE%E9%99%84%E5%BD%95D-%E4%BA%8B%E5%90%8E%E6%80%BB%E7%BB%93%E7%A4%BA%E8%8C%83-%E6%A8%A1%E6%9D%BF/">SRE附录D-事后总结示范-模板</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="莎士比亚新询文事故总结（事故编号-465）"><a href="#莎士比亚新询文事故总结（事故编号-465）" class="headerlink" title="莎士比亚新询文事故总结（事故编号 #465）"></a>莎士比亚新询文事故总结（事故编号 #465）</h3><p><strong>日期：</strong><br>2015-10-21</p>
+<p><strong>作者：</strong><br>Jennifer、martym、agoogler</p>
+<p><strong>目前状态：</strong><br>已经终稿，待办事项正在进行中</p>
+<p><strong>摘要：</strong><br>莎士比亚搜索服务出现66分钟的故障，由于新发现了一篇韵文，导致用户流量暴涨。</p>
+<p><strong>事故影响：</strong><br>预计12.1亿个请求丢失，没有损失任何收入。</p>
+<p><strong>根源问题：</strong><br>由于异常的高负债情况以及搜索词语在 Shakespeare Corpus 中不存在时的一项资源泄露导致的连锁故障的发生，新发现的韵文使用了一个之前从未在莎士比亚文献中出现的词语。这恰恰是用户大量搜索的关键词！在日常情况下。这种资源泄露导致的任务崩溃现象，由于出现非常不频繁，而没有被注意到。</p>
+<p><strong>触发条件：</strong><br>潜伏性的Bug被大量上涨流量所触发。</p>
+<p><strong>解决方案：</strong><br>将流量导向泄洪集群，同时增加了10倍容量，以应对连锁故障。部署了更新过的索引，绕过了潜在的Bug，在公共对新韵文的兴趣消退之前，保持额外的容量。资源泄露的问题已经被找到，并且修复已经上线。</p>
+<p><strong>检测：</strong><br>我检测到大量的 HTTP 500的情况，向on-call发送了紧急报警。</p>
+<p><strong>代办事项</strong><br>待办事项|类型|负责人|闭环日期|状态<br>–|–|–|–|–|–|–|<br>制定事后总结示范-模板|待办|杨志超|2019/12/08|Close<br>完成2019年总结梳理与输出-阅读专项|待办|杨志超|2019/12/31|Open</p>
+<p><strong>经验教训-做得好的地方</strong></p>
+<ul>
+<li>监控系统在大量错误的情况下快速发出了告警</li>
+<li>在所有集群中快速更新的 Shakespeare Corpus</li>
+</ul>
+<p><strong>经验教训-做得不好的地方</strong></p>
+<ul>
+<li>对连锁故障的处理不够熟练</li>
+<li>由于这次大幅度的流量增长，几乎全部请求都失败了，导致我们超过了可用性与错误预算数个数量级。</li>
+</ul>
+<p><strong>幸运的因素</strong></p>
+<ul>
+<li>莎士比亚迷的邮件列表里刚好有一份新的韵文文本</li>
+<li>服务日志中包括了指出文件描述符耗尽问题导致崩溃的栈跟踪</li>
+<li>致死请求通过推送新的索引关键词就解决了</li>
+</ul>
+<p><strong>时间线</strong><br>2015-10-21（所有时区都是UTC） </p>
+<ul>
+<li>14:51 新闻报道新的莎士比亚韵文在一辆Delorean车的杂物箱中发现 </li>
+<li>14:54 事故开始，搜索后端在高负载的情况下崩溃</li>
+<li>…… </li>
+<li>15:01 应急故障管理开始 </li>
+<li>…… </li>
+<li>15:36 故障缓解 </li>
+<li>…… </li>
+<li>16:00 故障结束</li>
+</ul>
+<p><strong>其他支持信息</strong></p>
+<ul>
+<li>SRE附录F~生产环境会议记录示范</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/08/SRE%E9%99%84%E5%BD%95D-%E4%BA%8B%E5%90%8E%E6%80%BB%E7%BB%93%E7%A4%BA%E8%8C%83-%E6%A8%A1%E6%9D%BF/" data-id="ck3wtbvie00020wvfck8x2kur" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CBG一周年回顾总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/16/CBG%E4%B8%80%E5%91%A8%E5%B9%B4%E5%9B%9E%E9%A1%BE%E6%80%BB%E7%BB%93/" class="article-date">
@@ -331,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/16/CBG%E4%B8%80%E5%91%A8%E5%B9%B4%E5%9B%9E%E9%A1%BE%E6%80%BB%E7%BB%93/" data-id="ck31pt0bj000094vfc29e8xgn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/16/CBG%E4%B8%80%E5%91%A8%E5%B9%B4%E5%9B%9E%E9%A1%BE%E6%80%BB%E7%BB%93/" data-id="ck3wtbvie00000wvfcrhsf68a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -380,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/16/hello-world/" data-id="ck31pt0c1000194vf3gpkd756" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/16/hello-world/" data-id="ck3wtbvie00010wvfa6ied8u1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -408,7 +485,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
     </div>
   </div>
 
@@ -419,6 +496,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/12/08/SRE%E9%99%84%E5%BD%95D-%E4%BA%8B%E5%90%8E%E6%80%BB%E7%BB%93%E7%A4%BA%E8%8C%83-%E6%A8%A1%E6%9D%BF/">SRE附录D-事后总结示范-模板</a>
+          </li>
         
           <li>
             <a href="/2019/11/16/CBG%E4%B8%80%E5%91%A8%E5%B9%B4%E5%9B%9E%E9%A1%BE%E6%80%BB%E7%BB%93/">CBG一周年回顾总结</a>
